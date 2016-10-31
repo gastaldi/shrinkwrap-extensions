@@ -10,8 +10,14 @@ This shrinkwrap implementation allows you to model a Maven project including its
 ----
 // This would create an Archive representation of the project
 MavenProjectArchive archive = ShrinkWrap.create(MavenProjectArchive.class);
-// Sets the pom.xml using a org.apache.maven.model.Model instance
+
+// Set the pom.xml using a org.apache.maven.model.Model instance
+Model model = new Model();
+model.setGroupId("org.example");
+model.setArtifactId("foo");
+model.setVersion("1.0.0-SNAPSHOT");
 archive.setPom(mavenModel);
+
 // Add a Java class using Roaster
 archive.add(Roaster.create(JavaClassSource.class).setName("Foo").setPackage("com.example.demo"));
 
