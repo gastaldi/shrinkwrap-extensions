@@ -18,8 +18,12 @@ model.setArtifactId("foo");
 model.setVersion("1.0.0-SNAPSHOT");
 archive.setPom(mavenModel);
 
-// Add a Java class using Roaster
+// Add a class to src/main/java
 archive.add(Roaster.create(JavaClassSource.class).setName("Foo").setPackage("com.example.demo"));
+
+// Add a class to src/test/java
+MavenTestProjectArchive testArchive = archive.as(MavenTestProjectArchive.class);
+testArchive.add(Roaster.create(JavaClassSource.class).setName("FooTest").setPackage("com.example.demo"));
 
 // We can export this to a ZIP file
 archive.as(ZipExporter.class).exportTo(new File("project.zip"), true);
