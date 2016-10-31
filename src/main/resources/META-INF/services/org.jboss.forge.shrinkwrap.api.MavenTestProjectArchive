@@ -1,0 +1,3 @@
+implementingClassName=org.jboss.forge.shrinkwrap.impl.MavenTestProjectArchiveImpl
+extension=.zip
+archiveFormat=UNKNOWN

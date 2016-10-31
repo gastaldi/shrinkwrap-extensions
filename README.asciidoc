@@ -1,0 +1,24 @@
+ShrinkWrap Maven Project
+========================
+
+This shrinkwrap implementation allows you to create a generate a Maven project.
+
+
+== Usage Example
+
+[source,java]
+----
+// This would create an Archive representation of the project
+
+MavenProjectArchive archive = ShrinkWrap.create(MavenProjectArchive.class);
+// Sets the pom.xml using a org.apache.maven.model.Model instance
+archive.setPom(mavenModel);
+// Add a Java class using Roaster
+archive.add(Roaster.create(JavaClassSource.class).setName("Foo").setPackage("com.example.demo"));
+
+// We can export this to a ZIP file
+archive.as(ZipExporter.class).exportTo(new File("project.zip"), true);
+
+// Or we can explode in a specified location
+archive.as(ExplodedExporter.class).exportExploded(new File("/tmp/demo")); 
+---- 
