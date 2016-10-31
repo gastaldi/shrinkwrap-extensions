@@ -16,18 +16,30 @@ import org.jboss.forge.roaster.model.JavaType;
 import org.jboss.forge.shrinkwrap.container.JavaSourceContainer;
 import org.jboss.forge.shrinkwrap.container.MavenProjectContainer;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePath;
+import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.impl.base.container.ContainerBase;
+import org.jboss.shrinkwrap.impl.base.container.WebContainerBase;
 import org.jboss.shrinkwrap.impl.base.path.BasicPath;
 
 /**
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public abstract class AbstractMavenProjectArchive<T extends Archive<T>> extends ContainerBase<T>
+public abstract class AbstractMavenProjectArchive<T extends Archive<T>> extends WebContainerBase<T>
          implements MavenProjectContainer<T>, JavaSourceContainer<T>
 {
+   /**
+    * Path to the web inside of the Archive.
+    */
+   private static final ArchivePath PATH_WEB = ArchivePaths.create("src/main/webapp");
+
+   /**
+    * Path to the WEB-INF inside of the Archive.
+    */
+   private static final ArchivePath PATH_WEB_INF = ArchivePaths.create(PATH_WEB, "WEB-INF");
+
    /**
     * @param actualType
     * @param archive
@@ -66,4 +78,23 @@ public abstract class AbstractMavenProjectArchive<T extends Archive<T>> extends 
    {
       return add(asset, "pom.xml");
    }
+
+   @Override
+   protected ArchivePath getWebPath()
+   {
+      return PATH_WEB;
+   }
+
+   @Override
+   protected ArchivePath getWebInfPath()
+   {
+      return PATH_WEB_INF;
+   }
+
+   @Override
+   protected ArchivePath getServiceProvidersPath()
+   {
+      throw new UnsupportedOperationException("Service Providers not supported");
+   }
+
 }

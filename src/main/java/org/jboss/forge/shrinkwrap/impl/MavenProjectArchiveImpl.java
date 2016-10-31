@@ -20,7 +20,6 @@ import org.jboss.shrinkwrap.impl.base.path.BasicPath;
 public class MavenProjectArchiveImpl extends AbstractMavenProjectArchive<MavenProjectArchive>
          implements MavenProjectArchive
 {
-
    /**
     * @param actualType
     * @param archive
@@ -68,5 +67,4 @@ public class MavenProjectArchiveImpl extends AbstractMavenProjectArchive<MavenPr
    {
       throw new UnsupportedOperationException("MavenProjectArchive does not support Libraries");
    }
-
 }

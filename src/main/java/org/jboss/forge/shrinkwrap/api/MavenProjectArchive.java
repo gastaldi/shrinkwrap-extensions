@@ -12,6 +12,7 @@ import org.jboss.forge.shrinkwrap.container.MavenProjectContainer;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.container.ManifestContainer;
 import org.jboss.shrinkwrap.api.container.ResourceContainer;
+import org.jboss.shrinkwrap.api.container.WebContainer;
 
 /**
  *
@@ -21,6 +22,7 @@ public interface MavenProjectArchive extends Archive<MavenProjectArchive>,
          ResourceContainer<MavenProjectArchive>,
          ManifestContainer<MavenProjectArchive>,
          JavaSourceContainer<MavenProjectArchive>,
-         MavenProjectContainer<MavenProjectArchive>
+         MavenProjectContainer<MavenProjectArchive>,
+         WebContainer<MavenProjectArchive>
 {
 }
