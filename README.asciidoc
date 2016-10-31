@@ -9,7 +9,6 @@ This shrinkwrap implementation allows you to create a generate a Maven project.
 [source,java]
 ----
 // This would create an Archive representation of the project
-
 MavenProjectArchive archive = ShrinkWrap.create(MavenProjectArchive.class);
 // Sets the pom.xml using a org.apache.maven.model.Model instance
 archive.setPom(mavenModel);
