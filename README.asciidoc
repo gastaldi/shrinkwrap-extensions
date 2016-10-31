@@ -1,7 +1,7 @@
 ShrinkWrap Maven Project
 ========================
 
-This shrinkwrap implementation allows you to create a generate a Maven project.
+This shrinkwrap implementation allows you to model a Maven project including its sources as a ShrinkWrap archive.
 
 
 == Usage Example
