@@ -29,5 +29,5 @@ testArchive.add(Roaster.create(JavaClassSource.class).setName("FooTest").setPack
 archive.as(ZipExporter.class).exportTo(new File("project.zip"), true);
 
 // Or we can explode in a specified location
-archive.as(ExplodedExporter.class).exportExploded(new File("/tmp/demo")); 
+archive.as(ExplodedExporter.class).exportExplodedInto(new File("/tmp/demo")); 
 ---- 
