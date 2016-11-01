@@ -1,7 +1,7 @@
 ShrinkWrap Maven Project
 ========================
 
-This shrinkwrap implementation allows you to model a Maven project including its sources as a ShrinkWrap archive.
+This shrinkwrap implementation allows you to model a Maven project including its sources as a ShrinkWrap archive. It uses https://github.com/forge/roaster[Roaster] and the Apache Maven Model API.
 
 
 == Usage Example
