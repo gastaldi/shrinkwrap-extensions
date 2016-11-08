@@ -6,30 +6,22 @@
       <artifactId>jboss-parent</artifactId>
       <version>20</version>
    </parent>
-   <groupId>org.jboss.forge</groupId>
-   <artifactId>project-shrinkwrap</artifactId>
+   <groupId>org.jboss.forge.addon</groupId>
+   <artifactId>shrinkwrap-extensions</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <properties>
       <maven.compiler.source>1.8</maven.compiler.source>
       <maven.compiler.target>1.8</maven.compiler.target>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <version.shrinkwrap>1.2.6</version.shrinkwrap>
-      <version.roaster>2.19.1.Final</version.roaster>
-      <version.maven>3.3.9</version.maven>
+      <version.forge>3.3.3.Final</version.forge>
    </properties>
    <dependencyManagement>
       <dependencies>
          <dependency>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-bom</artifactId>
-            <version>${version.shrinkwrap}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.forge.roaster</groupId>
-            <artifactId>roaster-bom</artifactId>
-            <version>${version.roaster}</version>
+            <groupId>org.jboss.forge</groupId>
+            <artifactId>forge-bom</artifactId>
+            <version>${version.forge}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -37,30 +29,22 @@
    </dependencyManagement>
    <dependencies>
       <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-api</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-impl-base</artifactId>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>parser-java</artifactId>
+         <classifier>forge-addon</classifier>
       </dependency>
 
       <dependency>
-         <groupId>org.apache.maven</groupId>
-         <artifactId>maven-model</artifactId>
-         <version>${version.maven}</version>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>maven</artifactId>
+         <classifier>forge-addon</classifier>
       </dependency>
-      <!-- <dependency> <groupId>org.apache.maven</groupId> <artifactId>maven-model-builder</artifactId> <version>${version.maven}</version> 
-         </dependency> -->
 
       <dependency>
-         <groupId>org.jboss.forge.roaster</groupId>
-         <artifactId>roaster-api</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.roaster</groupId>
-         <artifactId>roaster-jdt</artifactId>
-         <scope>runtime</scope>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>shrinkwrap</artifactId>
+         <classifier>forge-addon</classifier>
+         <version>${version.shrinkwrap}</version>
       </dependency>
 
       <dependency>
@@ -81,6 +65,36 @@
    <build>
       <plugins>
          <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>create-forge-addon</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>jar</goal>
+                  </goals>
+                  <configuration>
+                     <classifier>forge-addon</classifier>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <!-- Create jandex index for faster performance -->
+         <plugin>
+            <groupId>org.jboss.jandex</groupId>
+            <artifactId>jandex-maven-plugin</artifactId>
+            <version>1.0.3</version>
+            <executions>
+               <execution>
+                  <id>make-index</id>
+                  <goals>
+                     <goal>jandex</goal>
+                  </goals>
+                  <inherited>true</inherited>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
             <artifactId>maven-release-plugin</artifactId>
             <configuration>
                <releaseProfiles>gpg-sign,jboss-release,release</releaseProfiles>
@@ -99,6 +113,35 @@
             </configuration>
          </plugin>
       </plugins>
+      <pluginManagement>
+         <plugins>
+            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+            <plugin>
+               <groupId>org.eclipse.m2e</groupId>
+               <artifactId>lifecycle-mapping</artifactId>
+               <version>1.0.0</version>
+               <configuration>
+                  <lifecycleMappingMetadata>
+                     <pluginExecutions>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.jboss.jandex</groupId>
+                              <artifactId>jandex-maven-plugin</artifactId>
+                              <versionRange>[1.0.3,)</versionRange>
+                              <goals>
+                                 <goal>jandex</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore></ignore>
+                           </action>
+                        </pluginExecution>
+                     </pluginExecutions>
+                  </lifecycleMappingMetadata>
+               </configuration>
+            </plugin>
+         </plugins>
+      </pluginManagement>
    </build>
 
    <scm>
